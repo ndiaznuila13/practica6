@@ -11,7 +11,7 @@ const EsquemaReserva = z.object({
     nombre: z.string().min(1, "El nombre es obligatorio."),
     correo: z.string().email("El correo no es válido."),
     fecha: z.string().min(1, "La fecha es obligatoria."),
-    servicioID: z.coerce.number({ mensaje: "Debe seleccionar un servicio." }),
+    servicioId: z.coerce.number({ message: "Debe seleccionar un servicio." }),
 });
 
 // Crea una nueva reserva asociada a un servicio existente.
@@ -21,7 +21,7 @@ export async function crearReserva(_estadoPrevio: any, datos: FormData) {
         nombre: datos.get("nombre"),
         correo: datos.get("correo"),
         fecha: datos.get("fecha"),
-        servicioID: datos.get("servicioID"),
+        servicioId: datos.get("servicioId"),
     });
 
     // Si la validación falla, se retorna el objeto de errores al componente
@@ -37,7 +37,7 @@ export async function crearReserva(_estadoPrevio: any, datos: FormData) {
             nombre: campos.data.nombre,
             correo: campos.data.correo,
             fecha: new Date(campos.data.fecha),
-            servicio: { connect: { id: campos.data.servicioID } },
+            servicio: { connect: { id: campos.data.servicioId } },
         },
     });
 
