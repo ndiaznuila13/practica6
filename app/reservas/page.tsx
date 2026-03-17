@@ -18,8 +18,7 @@ export default async function PaginaReservas() {
                 <h1 className="text-xl font-semibold">Reservas</h1>
                 <Link
                     href="/reservas/nueva"
-                    className="bg-black text-white px-4 py-2 rounded text-sm hover:bg-gray-800
-transition-colors"
+                    className="bg-black text-white px-4 py-2 rounded text-sm hover:bg-gray-800 transition-colors"
                 >
                     Nueva reserva
                 </Link>

@@ -18,7 +18,7 @@ text-sm">
             </div>
             <ul className='space-y-3'>
                 {servicios.map((servicio) => (
-                    <li key={servicio.id} className={`${tarjeta} flex items-center justifybetween`}>
+                    <li key={servicio.id} className={`${tarjeta} flex items-center justify-between`}>
                         <div>
                             <p className='font-medium text-sm'>{servicio.nombre}</p>
                             <p className='text-xs text-gray-400'>{servicio.duracion} min —
