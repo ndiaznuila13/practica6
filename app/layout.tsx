@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import { Nav } from "./components/nav";
 import "./globals.css";
 
+<html lang='es' suppressHydrationWarning></html>
 const geist = Geist({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Panel de reservas',

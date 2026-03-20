@@ -2,15 +2,35 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { BotonEliminarReserva } from "./boton-eliminar";
 import { tarjeta } from "@/lib/estilos";
+import { BotonCancelarReserva } from "./boton-cancelar"; //importamos el nuevo botón
+import { BotonConfirmarReserva } from "./boton-confirmar";
 const etiquetaEstado: Record<string, string> = {
     pendiente: "bg-yellow-50 text-yellow-700 border-yellow-200",
     confirmada: "bg-green-50 text-green-700 border-green-200",
     cancelada: "bg-gray-100 text-gray-500 border-gray-200",
 };
-export default async function PaginaReservas() {
+
+// **************** EJERCICIO 3 ****************
+export default async function PaginaReservas({
+    searchParams,
+}: {                                            //Se agregan los searchParams para recibir el estado
+    searchParams: Promise<{ estado?: string }>;
+}) {
+
+    // const reservas = await prisma.reserva.findMany({  || Se reempleaza esto por el nuevo metodo
+    //     orderBy: { fecha: "asc" },
+    //     include: { servicio: true },
+
+    const params = await searchParams;
+    const estadoFiltro = params.estado;
+
     const reservas = await prisma.reserva.findMany({
         orderBy: { fecha: "asc" },
         include: { servicio: true },
+        where:
+            estadoFiltro && estadoFiltro !== "todos"
+                ? { estado: estadoFiltro }
+                : {},
     });
     return (
         <div>
@@ -23,6 +43,29 @@ export default async function PaginaReservas() {
                     Nueva reserva
                 </Link>
             </div>
+
+            {/* Filtro por estado  (ejercicio 3)*/} 
+            <div className="flex gap-2 mb-6 flex-wrap">
+                {["todos", "pendiente", "confirmada", "cancelada"].map((e) => {
+                    const isActivo =
+                        e === "todos"
+                            ? !estadoFiltro || estadoFiltro === "todos"
+                            : estadoFiltro === e;
+                    return (
+                        <Link
+                            key={e}
+                            href={e === "todos" ? "/reservas" : `/reservas?estado=${e}`}
+                            className={`px-3 py-1 rounded text-sm border capitalize transition-colors ${isActivo
+                                    ? "bg-black text-white border-black"
+                                    : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                                }`}
+                        >
+                            {e}
+                        </Link>
+                    );
+                })}
+            </div>
+
             {reservas.length === 0 ? (
                 <p className="text-sm text-gray-400">No hay reservas registradas.</p>
             ) : (
@@ -46,7 +89,11 @@ export default async function PaginaReservas() {
                                     {reserva.estado}
                                 </span>
                             </div>
-                            <BotonEliminarReserva id={reserva.id} />
+                            <div className="flex gap-2 shrink-0 ml-4"> {/* Se agrega un div donde estan los dos botones */}
+                                <BotonConfirmarReserva id={reserva.id} estadoActual={reserva.estado} />
+                                <BotonCancelarReserva id={reserva.id} estadoActual={reserva.estado} />
+                                <BotonEliminarReserva id={reserva.id} />
+                            </div>
                         </li>
                     ))}
                 </ul>
