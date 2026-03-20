@@ -49,8 +49,7 @@ const fechaFin = new Date(
     fechaInicio.getTime() + servicio.duracion * 60 * 1000 //multiplicacion para convertir minutos a milisegundos
 );
 
-// Buscar en la base todas las reservas del mismo servicio
-//    que empiecen ANTES de que termine la nueva 
+// Buscar en la base todas las reservas del mismo servicio que empiecen antes de que termine la nueva 
 const reservasCandidatas = await prisma.reserva.findMany({
     where: {
         servicioId: campos.data.servicioId, // mismo servicio
