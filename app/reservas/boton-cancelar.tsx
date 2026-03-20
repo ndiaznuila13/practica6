@@ -8,17 +8,16 @@ export function BotonCancelarReserva({
     estadoActual,
 }: {
     id: number;
-    estadoActual: string; // recibimos el estado para saber si ya está cancelada
+    estadoActual: string; // recibimos el estado 
 }) {
     // Estado local para mostrar un mensaje si algo falla
     const [error, setError] = useState<string | null>(null);
 
     // Si ya está cancelada, no mostramos el botón
-    // return null significa "no renderices nada"
     if (estadoActual === "cancelada") return null;
 
     async function manejarClick() {
-        const resultado = await cancelarReserva(id); // llama al servidor
+        const resultado = await cancelarReserva(id);
         if (!resultado.exito) {
             setError(resultado.mensaje ?? "Error desconocido.");
         }

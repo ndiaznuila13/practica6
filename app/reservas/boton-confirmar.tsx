@@ -13,7 +13,6 @@ export function BotonConfirmarReserva({
     const [error, setError] = useState<string | null>(null);
 
     // Solo aparece si la reserva está pendiente
-    // Una reserva ya confirmada o cancelada no tiene sentido confirmarla
     if (estadoActual !== "pendiente") return null;
 
     async function manejarClick() {
@@ -35,3 +34,5 @@ export function BotonConfirmarReserva({
         </div>
     );
 }
+
+// *************** AHORA SE AGREGA EL BOTÓN CONFIRMAR EN /reservas/page.tsx ****************
