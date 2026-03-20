@@ -65,6 +65,7 @@ export default async function PaginaReservas({
                     );
                 })}
             </div>
+            {/* fin de ejercicio 3 */}
 
             {reservas.length === 0 ? (
                 <p className="text-sm text-gray-400">No hay reservas registradas.</p>
