@@ -8,9 +8,8 @@ export function BotonCancelarReserva({
     estadoActual,
 }: {
     id: number;
-    estadoActual: string; // recibimos el estado 
+    estadoActual: string;
 }) {
-    // Estado local para mostrar un mensaje si algo falla
     const [error, setError] = useState<string | null>(null);
 
     // Si ya está cancelada, no mostramos el botón
@@ -21,7 +20,6 @@ export function BotonCancelarReserva({
         if (!resultado.exito) {
             setError(resultado.mensaje ?? "Error desconocido.");
         }
-        // Si tuvo éxito, revalidatePath() en el servidor ya actualizó la lista
     }
 
     return (
